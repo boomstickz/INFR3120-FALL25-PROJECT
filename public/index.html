@@ -1,1 +1,101 @@
-bababa
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forge My Hero — D&D Character Manager</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="bg-overlay"></div>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo-area">
+      <img src="img/logo.png" alt="Logo" class="logo">
+      <div class="brand-text">
+        <h1>Forge My Hero</h1>
+        <span class="tagline">Forge your legend from ashes. D&D Character Manager.</span>
+      </div>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Characters</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-shell">
+
+  <!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-text">
+    <h2>Strike the anvil. Forge your hero.</h2>
+    <p>
+      Build custom Dungeons &amp; Dragons characters with stats, traits, and
+      stories born from the flames of the forge.
+    </p>
+    <a href="#character-form" class="btn-primary">Create New Character</a>
+  </div>
+
+  <!-- Character portrait preview (placeholder, future upload area) -->
+  <aside class="hero-forge" aria-label="Character portrait preview">
+    <img
+      src="img/shadowwizard.png"
+      alt="Example wizard character portrait"
+      class="hero-portrait"
+    />
+    <p class="hero-portrait-caption">
+      Example hero preview · artwork upload coming soon
+    </p>
+  </aside>
+</section>
+
+
+
+  <!-- CHARACTER TABLE -->
+    <section class="panel">
+      <header class="panel-header">
+        <h3>Your characters</h3>
+        <p class="panel-subtitle">
+          A quick view at your characters you are currently forging.
+        </p>
+      </header>
+      <div class="table-wrapper">
+        <table class="character-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Class</th>
+              <th>Level</th>
+              <th>Species</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+        <!-- Placeholder -->
+            <tr>
+              <td>Example the Wizard</td>
+              <td>Wizard</td>
+              <td>3</td>
+              <td>Elf</td>
+              <td class="actions">
+                <button class="btn-ghost">View</button>
+                <button class="btn-ghost">Edit</button>
+                <button class="btn-danger">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 Forge My Hero · Forged with JavaScript.</p>
+  </footer>
+</body>
+</html>
