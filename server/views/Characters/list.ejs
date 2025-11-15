@@ -1,0 +1,49 @@
+<%- include ../partials/header.ejs %>
+<%- include ../partials/main_nav.ejs %>
+<!-- Main content for displaying my database -->
+<main class ="container">
+  <div class="row">
+    <div class="offset-md-1 col-md-10">
+      <h1><%= title %></h1>
+      <a href="/characters/add" class="btn btn-primary" role="button">
+        <i class="fas fa-plus-circle"></i> Add a Character
+      </a>
+      <table class="table table-bordered table-striped table-hover">
+        <tr class="d-flex">
+          <th class="text-center col-2">Character Name</th>
+          <th class="text-center col-2">Class and Level</th>
+          <th class="text-center col-2">Background</th>
+          <th class="text-center col-2">Race</th>
+          <th class="text-center col-2">Alignment</th>
+        </tr>
+        <!--for/while loop-->
+        <% for(let count=0; count<CharacterList.length;count++) { %>
+          <tr class="d-flex">
+            <td class="text-center col-2"><%= CharacterList[count].characterName %></td>
+            <td class="text-center col-2"><%= CharacterList[count].classLevel %></td>
+            <td class="text-center col-2"><%= CharacterList[count].background %></td>
+            <td class="text-center col-2"><%= CharacterList[count].race %></td>
+            <td class="text-center col-2"><%= CharacterList[count].alignment %></td>
+            <td class="text-center col-1">
+            <a href="/characters/edit/<%= CharacterList[count]._id%>"
+              class="btn btn-primary btn-sm">
+              <i class="fas fa-pencil-alt"></i> Edit
+              </a></td>
+            <td class="text-center col-1">
+            <a href="/characters/delete/<%= CharacterList[count]._id%>"
+              class="btn btn-danger btn-sm">
+              <i class="fas fa-trash-alt"></i>Delete
+              </a></td>
+            <td class="text-center col-1">
+            <a href="/characters/view/<%= CharacterList[count]._id %>"
+              class="btn btn-success btn-sm">
+              <i class="fas fa-eye"></i> View
+            </a></td>
+
+          </tr>
+        <% } %>
+      </table> 
+    </div>
+  </div>
+</main>
+<%- include ../partials/footer.ejs %>

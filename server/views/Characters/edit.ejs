@@ -1,0 +1,506 @@
+<%- include ../partials/header.ejs %>
+<%- include ../partials/main_nav.ejs %>
+
+<!-- Character Sheet Style Form -->
+<div class="container-fluid my-4">
+  <form class="character-sheet" method="post">
+    <!-- TOP HEADER STRIP -->
+    <div class="row justify-content-center mb-4">
+      <div class="col-xl-10 col-lg-11">
+        <div class="card cs-header-strip p-3">
+          <div class="row g-3 align-items-end">
+            <!-- Character Name -->
+            <div class="col-md-4">
+              <label for="characterNameTextField" class="form-label fw-bold text-uppercase small mb-1">
+                Character Name
+              </label>
+              <input type="text"
+                     class="form-control form-control-sm"
+                     id="characterNameTextField"
+                     name="characterName" 
+                     value="<%= Character.characterName%>"
+                     required>
+            </div>
+
+            <!-- Class & Level -->
+            <div class="col-md-3">
+              <label for="classLevelTextField" class="form-label fw-bold text-uppercase small mb-1">
+                Class &amp; Level
+              </label>
+              <input type="text"
+                     class="form-control form-control-sm"
+                     id="classLevelTextField"
+                     name="classLevel"
+                     value="<%= Character.classLevel%>"
+                     required>
+            </div>
+
+            <!-- Background -->
+            <div class="col-md-2">
+              <label for="backgroundTextField" class="form-label fw-bold text-uppercase small mb-1">
+                Background
+              </label>
+              <input type="text"
+                     class="form-control form-control-sm"
+                     id="backgroundTextField"
+                     name="background"
+                     value="<%= Character.background%>"
+                     required>
+            </div>
+
+            <!-- Race -->
+            <div class="col-md-2">
+              <label for="raceTextField" class="form-label fw-bold text-uppercase small mb-1">
+                Race
+              </label>
+              <input type="text"
+                     class="form-control form-control-sm"
+                     id="raceTextField"
+                     placeholder="Aasimar - Fallen"
+                     name="race"
+                     value="<%= Character.race%>"
+                     required>
+            </div>
+
+            <!-- Alignment -->
+            <div class="col-md-1">
+              <label for="alignmentTextField" class="form-label fw-bold text-uppercase small mb-1">
+                Alignment
+              </label>
+              <input type="text"
+                     class="form-control form-control-sm"
+                     id="alignmentTextField"
+                     placeholder="LE"
+                     name="alignment"
+                     value="<%= Character.alignment%>"
+                     required>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN BODY -->
+    <div class="row justify-content-center">
+      <div class="col-xl-10 col-lg-11">
+        <div class="row g-4">
+          <!-- COLUMN 1: ABILITY SCORES -->
+          <div class="col-lg-4 col-md-6">
+            <div class="card p-3 cs-abilities-card">
+              <h2 class="h6 text-uppercase text-center mb-3">Abilities</h2>
+
+              <!-- Strength -->
+              <div class="cs-ability mb-3">
+                <div class="cs-ability-label text-uppercase small fw-bold text-center">
+                  Strength
+                </div>
+                <div class="d-flex justify-content-center align-items-center gap-2 mt-1">
+                  <input type="number"
+                         class="form-control form-control-sm text-center cs-ability-score"
+                         id="strengthScoreNumberField"
+                         placeholder="0"
+                         name="strengthScore"
+                         value="<%= Character.strengthScore%>">
+                  <input type="text"
+                         class="form-control form-control-sm text-center cs-ability-mod"
+                         id="strengthModTextField"
+                         placeholder="+0"
+                         name="strengthMod"
+                         value="<%= Character.strengthMod%>">
+                </div>
+              </div>
+
+              <!-- Dexterity -->
+              <div class="cs-ability mb-3">
+                <div class="cs-ability-label text-uppercase small fw-bold text-center">
+                  Dexterity
+                </div>
+                <div class="d-flex justify-content-center align-items-center gap-2 mt-1">
+                  <input type="number"
+                         class="form-control form-control-sm text-center cs-ability-score"
+                         id="dexterityScoreNumberField"
+                         placeholder="0"
+                         name="dexterityScoreNumberField"
+                         value="<%= Character.dexterityScore%>">   
+                  <input type="text"
+                         class="form-control form-control-sm text-center cs-ability-mod"
+                         id="dexterityModTextField"
+                         placeholder="+0"
+                         name="dexterityMod"
+                         value="<%= Character.dexterityMod%>">
+                </div>
+              </div>
+
+              <!-- Constitution -->
+              <div class="cs-ability mb-3">
+                <div class="cs-ability-label text-uppercase small fw-bold text-center">
+                  Constitution
+                </div>
+                <div class="d-flex justify-content-center align-items-center gap-2 mt-1">
+                  <input type="number"
+                         class="form-control form-control-sm text-center cs-ability-score"
+                         id="constitutionScoreNumberField"
+                         placeholder="0"
+                         name="constitutionScore"
+                         value="<%= Character.constitutionScore%>">
+                  <input type="text"
+                         class="form-control form-control-sm text-center cs-ability-mod"
+                         id="constitutionModTextField"
+                         placeholder="+0"
+                         name="constitutionMod"
+                         value="<%= Character.constitutionMod%>">
+                </div>
+              </div>
+
+              <!-- Intelligence -->
+              <div class="cs-ability mb-3">
+                <div class="cs-ability-label text-uppercase small fw-bold text-center">
+                  Intelligence
+                </div>
+                <div class="d-flex justify-content-center align-items-center gap-2 mt-1">
+                  <input type="number"
+                         class="form-control form-control-sm text-center cs-ability-score"
+                         id="intelligenceScoreNumberField"
+                         placeholder="0"
+                         name="intelligenceScore"
+                         value="<%= Character.intelligenceScore%>">
+                  <input type="text"
+                         class="form-control form-control-sm text-center cs-ability-mod"
+                         id="intelligenceModTextField"
+                         placeholder="+0"
+                         name="intelligenceMod"
+                         value="<%= Character.intelligenceMod%>">
+                </div>
+              </div>
+
+              <!-- Wisdom -->
+              <div class="cs-ability mb-3">
+                <div class="cs-ability-label text-uppercase small fw-bold text-center">
+                  Wisdom
+                </div>
+                <div class="d-flex justify-content-center align-items-center gap-2 mt-1">
+                  <input type="number"
+                         class="form-control form-control-sm text-center cs-ability-score"
+                         id="wisdomScoreNumberField"
+                         placeholder="0"
+                         name="wisdomScore"
+                         value="<%= Character.wisdomScore%>">
+                  <input type="text"
+                         class="form-control form-control-sm text-center cs-ability-mod"
+                         id="wisdomModTextField"
+                         placeholder="+0"
+                         name="wisdomMod"
+                         value="<%= Character.wisdomMod%>">
+                </div>
+              </div>
+
+              <!-- Charisma -->
+              <div class="cs-ability mb-1">
+                <div class="cs-ability-label text-uppercase small fw-bold text-center">
+                  Charisma
+                </div>
+                <div class="d-flex justify-content-center align-items-center gap-2 mt-1">
+                  <input type="number"
+                         class="form-control form-control-sm text-center cs-ability-score"
+                         id="charismaScoreNumberField"
+                         placeholder="0"
+                         name="charismaScore"
+                         value="<%= Character.charismaScore%>">
+                  <input type="text"
+                         class="form-control form-control-sm text-center cs-ability-mod"
+                         id="charismaModTextField"
+                         placeholder="+0"
+                         name="charismaMod"
+                         value="<%= Character.charismaMod%>">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--COLUMN 2: INSPIRATION, SAVES, COMBAT -->
+          <div class="col-lg-3 col-md-6">
+            <!-- Inspiration + Proficiency Bonus + Saving Throws -->
+            <div class="card p-3 mb-3 cs-saves-card">
+              <!-- Inspiration + Proficiency bonus row -->
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="d-flex align-items-center gap-2">
+                  <input type="checkbox"
+                        id="inspirationCheckBox"
+                        name="inspiration"
+                        value="true">
+                  <label for="inspirationCheckBox" class="small fw-bold mb-0 text-uppercase">
+                    Inspiration
+                  </label>
+                </div>
+
+                <div class="text-end">
+                  <div class="small fw-bold text-uppercase mb-1">Prof. Bonus</div>
+                  <input type="number"
+                        name="proficiencyBonus"
+                        class="cs-mini-stat text-center"
+                        placeholder="+2">
+                </div>
+              </div>
+
+              <!-- Saving Throws -->
+              <div class="mt-2">
+                <div class="small fw-bold text-uppercase mb-1">Saving Throws</div>
+
+                <div class="cs-skill-row">
+                  <span>Strength</span>
+                  <input type="text" name="saveStrength" value="<%= Character.saveStrength%>"class="cs-skill-mini" placeholder="+0">
+                </div>
+                <div class="cs-skill-row">
+                  <span>Dexterity</span>
+                  <input type="text" name="saveDexterity" value="<%= Character.saveDexterity%>"class="cs-skill-mini" placeholder="+0">
+                </div>
+                <div class="cs-skill-row">
+                  <span>Constitution</span>
+                  <input type="text" name="saveConstitution" value="<%= Character.saveConstitution%>"class="cs-skill-mini" placeholder="+0">
+                </div>
+                <div class="cs-skill-row">
+                  <span>Intelligence</span>
+                  <input type="text" name="saveIntelligence" value="<%= Character.saveIntelligence%>"class="cs-skill-mini" placeholder="+0">
+                </div>
+                <div class="cs-skill-row">
+                  <span>Wisdom</span>
+                  <input type="text" name="saveWisdom" value="<%= Character.saveWisdom%>"class="cs-skill-mini" placeholder="+0">
+                </div>
+                <div class="cs-skill-row">
+                  <span>Charisma</span>
+                  <input type="text" name="saveCharisma" value="<%= Character.saveCharisma%>"class="cs-skill-mini" placeholder="+0">
+                </div>
+              </div>
+            </div>
+
+            <!-- Combat Stats: AC, Initiative, HP -->
+            <div class="card p-3 cs-combat-card">
+              <!-- Top row: AC + Initiative -->
+              <div class="d-flex justify-content-between mb-3">
+                <div class="text-center flex-fill me-2">
+                  <div class="small text-uppercase fw-bold">Armor Class</div>
+                  <input type="number"
+                        name="armorClass"
+                        value="<%= Character.armorClass%>"
+                        class="cs-mini-stat text-center"
+                        placeholder="18">
+                </div>
+                <div class="text-center flex-fill ms-2">
+                  <div class="small text-uppercase fw-bold">Initiative</div>
+                  <input type="text"
+                        name="initiative"
+                        value="<%= Character.initiative%>"
+                        class="cs-mini-stat text-center"
+                        placeholder="+0">
+                </div>
+              </div>
+
+              <!-- HP block -->
+              <div class="cs-hp-block">
+                <div class="small text-uppercase mb-1">Hit Point Maximum</div>
+                <input type="number"
+                      name="maxHP"
+                      value="<%= Character.maxHP%>"
+                      class="form-control form-control-sm text-center mb-2"
+                      placeholder="0">
+
+                <div class="display-6 text-center mb-1 cs-current-hp">
+                  <input type="number"
+                        name="currentHP"
+                        value="<%= Character.currentHP%>"
+                        class="form-control form-control-sm text-center"
+                        placeholder="0">
+                </div>
+                <div class="text-center small text-uppercase mb-2">
+                  Current Hit Points
+                </div>
+
+                <div class="small text-uppercase mb-1">Temporary Hit Points</div>
+                <input type="number"
+                      name="tempHP"
+                      value="<%= Character.tempHP%>"
+                      class="form-control form-control-sm text-center"
+                      placeholder="0">
+              </div>
+            </div>
+          </div>
+
+          <!--COLUMN 3: SKILLS -->
+          <div class="col-lg-3 col-md-6">
+            <div class="card p-3">
+              <h2 class="h6 text-uppercase text-center mb-3">Skills</h2>
+
+              <div class="cs-skill-list">
+
+                <div class="cs-skill-row">
+                  <span>Athletics (Str)</span>
+                  <input type="text" name="skillAthletics" value="<%= Character.skillAthletics%>" class="cs-skill-mini" placeholder="+0">
+                </div>
+
+                <div class="cs-skill-row">
+                  <span>Acrobatics (Dex)</span>
+                  <input type="text" name="skillAcrobatics" value="<%= Character.skillAcrobatics%>" class="cs-skill-mini" placeholder="+0">
+                </div>
+
+                <div class="cs-skill-row">
+                  <span>Sleight of Hand (Dex)</span>
+                  <input type="text" name="skillSleightOfHand" value="<%= Character.skillSleightOfHand%>" class="cs-skill-mini" placeholder="+0">
+                </div>
+
+                <div class="cs-skill-row">
+                  <span>Stealth (Dex)</span>
+                  <input type="text" name="skillStealth" value="<%= Character.skillStealth%>" class="cs-skill-mini" placeholder="+0">
+                </div>
+
+                <div class="cs-skill-row">
+                  <span>Arcana (Int)</span>
+                  <input type="text" name="skillArcana" value="<%= Character.skillArcana%>" class="cs-skill-mini" placeholder="+0">
+                </div>
+
+                <div class="cs-skill-row">
+                  <span>History (Int)</span>
+                  <input type="text" name="skillHistory" value="<%= Character.skillHistory%>" class="cs-skill-mini" placeholder="+0">
+                </div>
+
+                <div class="cs-skill-row">
+                  <span>Investigation (Int)</span>
+                  <input type="text" name="skillInvestigation" value="<%= Character.skillInvestigation%>" class="cs-skill-mini" placeholder="+0">
+                </div>
+
+                <div class="cs-skill-row">
+                  <span>Nature (Int)</span>
+                  <input type="text" name="skillNature" value="<%= Character.skillNature%>" class="cs-skill-mini" placeholder="+0">
+                </div>
+
+                <div class="cs-skill-row">
+                  <span>Religion (Int)</span>
+                  <input type="text" name="skillReligion" value="<%= Character.skillReligion%>" class="cs-skill-mini" placeholder="+0">
+                </div>
+
+                <div class="cs-skill-row">
+                  <span>Animal Handling (Wis)</span>
+                  <input type="text" name="skillAnimalHandling" value="<%= Character.skillAnimalHandling%>" class="cs-skill-mini" placeholder="+0">
+                </div>
+
+                <div class="cs-skill-row">
+                  <span>Insight (Wis)</span>
+                  <input type="text" name="skillInsight" value="<%= Character.skillInsight%>" class="cs-skill-mini" placeholder="+0">
+                </div>
+
+                <div class="cs-skill-row">
+                  <span>Medicine (Wis)</span>
+                  <input type="text" name="skillMedicine" value="<%= Character.skillMedicine%>" class="cs-skill-mini" placeholder="+0">
+                </div>
+
+                <div class="cs-skill-row">
+                  <span>Perception (Wis)</span>
+                  <input type="text" name="skillPerception" value="<%= Character.skillPerception%>"class="cs-skill-mini" placeholder="+0">
+                </div>
+
+                <div class="cs-skill-row">
+                  <span>Survival (Wis)</span>
+                  <input type="text" name="skillSurvival" value="<%= Character.skillSurvival%>"class="cs-skill-mini" placeholder="+0">
+                </div>
+
+                <div class="cs-skill-row">
+                  <span>Deception (Cha)</span>
+                  <input type="text" name="skillDeception" value="<%= Character.skillDecption%>"class="cs-skill-mini" placeholder="+0">
+                </div>
+
+                <div class="cs-skill-row">
+                  <span>Intimidation (Cha)</span>
+                  <input type="text" name="skillIntimidation" value="<%= Character.skillIntimidation%>"class="cs-skill-mini" placeholder="+0">
+                </div>
+
+                <div class="cs-skill-row">
+                  <span>Performance (Cha)</span>
+                  <input type="text" name="skillPerformance" value="<%= Character.skillPerformance%>" class="cs-skill-mini" placeholder="+0">
+                </div>
+
+                <div class="cs-skill-row">
+                  <span>Persuasion (Cha)</span>
+                  <input type="text" name="skillPersuasion" value="<%= Character.skillPersuasion%>" class="cs-skill-mini" placeholder="+0">
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!--COLUMN 4 -->
+          <div class="col-lg-3 col-md-6">
+          <div class="card p-3">
+
+            <h2 class="h6 text-uppercase text-center mb-3">Passive Scores</h2>
+
+            <div class="cs-passive-row">
+              <span>Passive Perception</span>
+              <input type="number"
+                    name="passivePerception"
+                    value="<%= Character.passivePerception%>"
+                    class="cs-skill-mini"
+                    placeholder="10">
+            </div>
+
+            <div class="cs-passive-row">
+              <span>Passive Investigation</span>
+              <input type="number"
+                    name="passiveInvestigation"
+                    value="<%= Character.passiveInvestigation%>"
+                    class="cs-skill-mini"
+                    placeholder="10">
+            </div>
+
+            <div class="cs-passive-row">
+              <span>Passive Insight</span>
+              <input type="number"
+                    name="passiveInsight"
+                    value="<%= Character.passiveInsight%>"
+                    class="cs-skill-mini"
+                    placeholder="10">
+            </div>
+
+            <hr>
+
+            <h2 class="h6 text-uppercase text-center mb-3">Proficiencies</h2>
+
+            <!-- Armor -->
+            <label class="small fw-bold text-uppercase mb-1">Armor</label>
+            <textarea name="armor" 
+                      value="<%= Character.armor%>"
+                      class="form-control form-control-sm cs-profic-box"
+                      placeholder="Light armor, shields"></textarea>
+
+            <!-- Weapons -->
+            <label class="small fw-bold text-uppercase mt-3 mb-1">Weapons</label>
+            <textarea name="weapons"
+                      value="<%= Character.weapons%>"
+                      class="form-control form-control-sm cs-profic-box"
+                      placeholder="Swords, daggers"></textarea>
+
+            <!-- Languages -->
+            <label class="small fw-bold text-uppercase mt-3 mb-1">Languages</label>
+            <textarea name="languages"
+                      value="<%= Character.languages%>"
+                      class="form-control form-control-sm cs-profic-box"
+                      placeholder="Common, Celestial"></textarea>
+
+          </div>
+        </div>
+
+        <!-- FORM BUTTONS -->
+        <div class="row mt-4 mb-3">
+          <div class="col text-end">
+            <button class="btn btn-primary" type="submit">
+              <i class="fas fa-edit"></i> Submit
+            </button>
+            <a href="/characters" class="btn btn-warning">
+              <i class="fas fa-undo"></i> Cancel
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<%- include ../partials/footer.ejs %>

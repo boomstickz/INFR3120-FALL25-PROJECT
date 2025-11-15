@@ -1,0 +1,94 @@
+/* Makes skill boxes tiny like actual D&D sheets */
+.cs-skill-mini {
+    width: 55px !important;
+    padding: 2px 4px !important;
+    height: 26px !important;
+    font-size: 0.75rem !important;
+    line-height: 1 !important;
+    display: inline-block;
+}
+.cs-skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* removes vertical spacing */
+}
+
+.cs-skill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 0; /* super tight spacing */
+}
+
+.cs-skill-row span {
+    font-size: 0.85rem;
+}
+
+.cs-skill-mini {
+    width: 50px;
+    height: 26px;
+    padding: 2px;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.cs-mini-stat {
+  width: 60px;
+  height: 28px;
+  font-size: 0.8rem;
+  padding: 2px 4px;
+}
+
+.cs-skill-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 1px 0;
+}
+
+.cs-skill-row span {
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.cs-skill-mini {
+  width: 45px;
+  height: 24px;
+  font-size: 0.75rem;
+  text-align: center;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.cs-hp-block input[type="number"] {
+  max-width: 100%;
+}
+.cs-passive-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 0;
+}
+
+.cs-passive-row span {
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+/* tiny passive input */
+.cs-skill-mini {
+    width: 45px;
+    height: 24px;
+    padding: 2px;
+    font-size: 0.75rem;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* medium text areas for armor, weapons, languages */
+.cs-profic-box {
+    min-height: 60px;
+    font-size: 0.85rem;
+    resize: vertical;
+}
+
