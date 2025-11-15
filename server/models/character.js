@@ -1,5 +1,7 @@
-let mongoose = require('mongoose');
+// MongoBD collection for dnd character templates
+// some numbers set to string to acount for showing modifiers as positive/negative
 
+let mongoose = require('mongoose');
 let characterModel = new mongoose.Schema(
   {
     // Basic character info
