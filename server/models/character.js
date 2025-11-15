@@ -2,6 +2,8 @@
 // some numbers set to string to acount for showing modifiers as positive/negative
 
 let mongoose = require('mongoose');
+
+// create schema for character documents
 let characterModel = new mongoose.Schema(
   {
     // Basic character info
@@ -79,6 +81,8 @@ let characterModel = new mongoose.Schema(
   }
 );
 
+// creates character model using schema
 const Character = mongoose.model('Character', characterModel);
 
+// exports model to be used in routes and controllers
 module.exports = Character;

@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
 
+// import character model (mongodb collection)
 let Character = require('../models/character');
 
 // get --> extract and read
@@ -13,8 +14,10 @@ let Character = require('../models/character');
 // get route for the read character list - read operation
 router.get('/', async (req, res, next) => {
   try {
+    // retrieves all characters from database
     const CharacterList = await Character.find();
 
+    // renders character list into ejs page
     res.render('Characters/list', {
       title: 'Characters',
       CharacterList: CharacterList
@@ -22,6 +25,8 @@ router.get('/', async (req, res, next) => {
 
   } catch (err) {
     console.error(err);
+
+    //renders error on same list page
     res.render('Characters/list',{
       error:'Error on server'
     })
@@ -123,6 +128,5 @@ router.get('/delete/:id',async(req,res,next)=>{
 
 });
 
-
-
+// exports router for server.js
 module.exports = router;
