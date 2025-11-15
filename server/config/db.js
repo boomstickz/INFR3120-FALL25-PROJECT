@@ -1,1 +1,6 @@
-module.exports={"URI":"mongodb://localhost:27017/DnDCharacters"}
+// using .env and gitignore to hide mongodb password
+require('dotenv').config();
+
+module.exports = {
+  URI: process.env.MONGODB_URI
+};
