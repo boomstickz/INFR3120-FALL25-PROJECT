@@ -120,20 +120,6 @@ router.get('/delete/:id',async(req,res,next)=>{
     console.log(err);
     next(err);
   }
-})
-// get route for viewing a single character sheet
-router.get('/view/:id', async (req, res, next) => {
-  try {
-    const id = req.params.id;
-    const character = await Character.findById(id);
-    res.render('Characters/view', {
-      title: 'Character Sheet',
-      Character: character
-    });
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
 
 });
 
