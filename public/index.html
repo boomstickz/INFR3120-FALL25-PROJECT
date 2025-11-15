@@ -21,7 +21,7 @@
     <nav>
       <ul class="nav-links">
         <li><a href="#">Home</a></li>
-        <li><a href="#">Characters</a></li>
+        <li><a href="characters">Characters</a></li>
         <li><a href="#">About</a></li>
       </ul>
     </nav>
@@ -38,7 +38,7 @@
       Build custom Dungeons &amp; Dragons characters with stats, traits, and
       stories born from the flames of the forge.
     </p>
-    <a href="#character-form" class="btn-primary">Create New Character</a>
+    <a href="/characters/add" class="btn-primary">Create New Character</a>
   </div>
 
   <!-- Character portrait preview (placeholder, future upload area) -->
@@ -68,23 +68,24 @@
         <table class="character-table">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Class</th>
-              <th>Level</th>
-              <th>Species</th>
-              <th>Actions</th>
+              <th>Character Name</th>
+              <th>Class and Level</th>
+              <th>Background</th>
+              <th>Race</th>
+              <th>Alignment</th>
             </tr>
           </thead>
           <tbody>
         <!-- Placeholder -->
             <tr>
               <td>Example the Wizard</td>
-              <td>Wizard</td>
-              <td>3</td>
+              <td>Wizard 3</td>
+              <td>Sage</td>
               <td>Elf</td>
+              <td>Lawful Evil</td>
+
               <td class="actions">
-                <button class="btn-ghost">Edit</button>
-                <button class="btn-danger">Delete</button>
+                <a href="/characters" class="btn-ghost">View</button>
               </td>
             </tr>
           </tbody>
