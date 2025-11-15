@@ -1,8 +1,6 @@
-#!/usr/bin/env node
+// server.js (project root)
+require('dotenv').config(); 
 
-/**
- * Module dependencies.
- */
 /*
 Create, Read, Update, Delete --> CRUD Operation
 */
