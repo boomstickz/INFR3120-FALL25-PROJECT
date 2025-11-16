@@ -14,5 +14,3 @@ This release includes:
 - HTML
 - CSS
 
-## How to Run
-Simply open `public/index.html` in a browser.
