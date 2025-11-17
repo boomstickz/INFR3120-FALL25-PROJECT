@@ -8,7 +8,7 @@ This release includes:
 - Landing page with branding + navigation
 - Hero section with “Create New Character” button
 - Table layout displaying characters
-- Public folder structure prepared for CRUD features
+- Full CRUD operations to view, add, edit, and delete new characters
 
 ## Tech Stack
 - HTML
