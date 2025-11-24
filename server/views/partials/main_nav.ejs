@@ -1,18 +1,37 @@
 <!-- NAVBAR -->
 <header class="navbar">
   <div class="logo-area">
-    <!-- absolute path so logo loads correct -->
     <img src="/img/logo.png" alt="Logo" class="logo">
     <div class="brand-text">
       <h1>Forge My Hero</h1>
       <span class="tagline">Forge your legend from ashes. D&D Character Manager.</span>
     </div>
   </div>
+
   <nav>
     <ul class="nav-links">
       <li><a href="/">Home</a></li>
       <li><a href="/characters">Characters</a></li>
-      <li><a href="#">About</a></li>
+      <li><a href="/about">About</a></li>
+
+      <!--  AUTH LOGIC -->
+      <% if (!currentUser) { %>
+        <!-- User is NOT logged in -->
+        <li><a href="/users/login">Login</a></li>
+        <li><a href="/users/register">Register</a></li>
+
+      <% } else { %>
+        <!-- User IS logged in -->
+        <li class="nav-user">Hi, <%= currentUser.username %></li>
+
+        <li>
+          <form action="/users/logout" method="POST" style="display:inline;">
+            <button type="submit" class="logout-btn">Logout</button>
+          </form>
+        </li>
+      <% } %>
+      <!-- END AUTH LOGIC -->
+
     </ul>
   </nav>
 </header>

@@ -340,3 +340,118 @@ body::before {
     gap: 0.75rem;
   }
 }
+
+/* === Auth pages (login & register) === */
+
+.page-auth {
+  min-height: calc(100vh - 80px); /* adjust if your navbar height is different */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* Top text section */
+.hero-auth {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.hero-auth h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.hero-auth p {
+  opacity: 0.85;
+}
+
+/* Card that wraps the form */
+.auth-card {
+  max-width: 420px;
+  width: 100%;
+}
+
+.auth-card__inner {
+  background: radial-gradient(circle at top, rgba(255, 140, 0, 0.15), rgba(0, 0, 0, 0.95));
+  border-radius: 18px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Form itself */
+.auth-form .form-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.auth-form label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.auth-form input[type="email"],
+.auth-form input[type="password"],
+.auth-form input[type="text"] {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(10, 10, 10, 0.9);
+  color: #fff;
+}
+
+/* Button */
+.auth-form .btn,
+.auth-form button[type="submit"] {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Error message */
+.auth-error {
+  background: rgba(255, 80, 80, 0.15);
+  border: 1px solid rgba(255, 80, 80, 0.6);
+  color: #ffb3b3;
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+/* “Already have an account?” text */
+.auth-switch {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.auth-switch a {
+  text-decoration: underline;
+}
+
+.logout-btn {
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  margin: 0;
+  text-decoration: underline;
+}
+
+.nav-user {
+  font-weight: 600;
+  margin-right: 10px;
+}

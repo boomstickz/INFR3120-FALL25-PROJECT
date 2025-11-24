@@ -1,0 +1,56 @@
+<%- include('partials/header', { title: 'Login | Forge My Hero' }) %>
+
+<main class="page page-auth">
+
+  <section class="hero-auth">
+    <h1>Welcome back, hero.</h1>
+    <p>Log in to continue forging your Dungeons & Dragons characters.</p>
+  </section>
+
+  <section class="auth-card">
+    <div class="auth-card__inner">
+
+      <% if (errorMessage) { %>
+        <div class="auth-error"><%= errorMessage %></div>
+      <% } %>
+
+      <form action="/users/login" method="POST" class="auth-form">
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            id="email" 
+            name="email" 
+            type="email" 
+            required 
+            value="<%= formData?.email || '' %>"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input 
+            id="password" 
+            name="password" 
+            type="password" 
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          Log In
+        </button>
+
+      </form>
+
+      <p class="auth-switch">
+        New to Forge My Hero?
+        <a href="/users/register">Create an account</a>
+      </p>
+
+    </div>
+  </section>
+
+</main>
+
+<%- include('partials/footer') %>

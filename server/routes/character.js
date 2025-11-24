@@ -5,11 +5,8 @@ let mongoose = require('mongoose');
 // import character model (mongodb collection)
 let Character = require('../models/character');
 
-// get --> extract and read
-// post --> post something
-// put --> edit/update data
-// delete --> delete the data
-
+//  auth middleware
+const { ensureLoggedIn } = require('../middleware/auth');
 
 // get route for the read character list - read operation
 router.get('/', async (req, res, next) => {
@@ -21,60 +18,59 @@ router.get('/', async (req, res, next) => {
     res.render('Characters/list', {
       title: 'Characters',
       CharacterList: CharacterList
-    })
+    });
 
   } catch (err) {
     console.error(err);
 
     //renders error on same list page
-    res.render('Characters/list',{
-      error:'Error on server'
-    })
+    res.render('Characters/list', {
+      error: 'Error on server'
+    });
   }
-})
+});
 
-// get route for displaying add page- create operation
-router.get('/add',async(req,res,next)=>{
-  try{
-    res.render('Characters/add',{
-      title:'Add Character'
+// get route for displaying add page - create operation
+router.get('/add', ensureLoggedIn, async (req, res, next) => {
+  try {
+    res.render('Characters/add', {
+      title: 'Add Character'
     });
   }
-  catch (err) 
-  {
+  catch (err) {
     console.error(err);
-    res.render('Characters/list',{
-      error:'Error on server'
-    })
+    res.render('Characters/list', {
+      error: 'Error on server'
+    });
   }
-})
-// post route for processing add page- create operation
-router.post('/add',async(req,res,next)=>{
-  try{
+});
+
+// post route for processing add page - create operation
+router.post('/add', ensureLoggedIn, async (req, res, next) => {
+  try {
     let newCharacter = Character({
-      "characterName":req.body.characterName,
-      "classLevel":req.body.classLevel,
-      "background":req.body.background,
-      "race":req.body.race,
-      "alignment":req.body.alignment,
+      "characterName": req.body.characterName,
+      "classLevel": req.body.classLevel,
+      "background": req.body.background,
+      "race": req.body.race,
+      "alignment": req.body.alignment,
     });
-    Character.create(newCharacter).then(()=>{
-      res.redirect('/characters')
-    })
-   
+    Character.create(newCharacter).then(() => {
+      res.redirect('/characters');
+    });
+
   }
-  catch (err) 
-  {
+  catch (err) {
     console.error(err);
-    res.render('Characters/list',{
-      error:'Error on server'
-    })
+    res.render('Characters/list', {
+      error: 'Error on server'
+    });
   }
-})
-// get route for displaying edit page- update operation
-router.get('/edit/:id',async(req,res,next)=>{
-  try
-  {
+});
+
+// get route for displaying edit page - update operation
+router.get('/edit/:id', ensureLoggedIn, async (req, res, next) => {
+  try {
     const id = req.params.id;
     const characterToEdit = await Character.findById(id);
     res.render("Characters/edit",
@@ -82,16 +78,16 @@ router.get('/edit/:id',async(req,res,next)=>{
         title: 'Edit Character',
         Character: characterToEdit
       }
-    )
+    );
   }
-  catch(err)
-  {
+  catch (err) {
     console.log(err);
     next(err);
   }
-})
-// post route for processing edit page- update operation
-router.post('/edit/:id',async(req,res,next)=>{
+});
+
+// post route for processing edit page - update operation
+router.post('/edit/:id', ensureLoggedIn, async (req, res, next) => {
   try {
     let id = req.params.id;
     let updateCharacter = Character({
@@ -101,27 +97,26 @@ router.post('/edit/:id',async(req,res,next)=>{
       "background": req.body.background,
       "race": req.body.race,
       "alignment": req.body.alignment,
-    })
-    Character.findByIdAndUpdate(id,updateCharacter).then(()=>{
-      res.redirect("/characters")
-    })
+    });
+    Character.findByIdAndUpdate(id, updateCharacter).then(() => {
+      res.redirect("/characters");
+    });
   }
-  catch(err)
-  {
+  catch (err) {
     console.log(err);
     next(err);
   }
-})
-// get route for performing delete operation- delete operation
-router.get('/delete/:id',async(req,res,next)=>{
-  try{
+});
+
+// get route for performing delete operation - delete operation
+router.get('/delete/:id', ensureLoggedIn, async (req, res, next) => {
+  try {
     let id = req.params.id;
-    Character.deleteOne({_id:id}).then(()=>{
-      res.redirect("/characters")
-    })
+    Character.deleteOne({ _id: id }).then(() => {
+      res.redirect("/characters");
+    });
   }
-  catch(err)
-  {
+  catch (err) {
     console.log(err);
     next(err);
   }
