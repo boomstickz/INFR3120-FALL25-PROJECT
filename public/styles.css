@@ -462,6 +462,8 @@ body::before {
   border: 1px solid var(--border-soft);
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.02);
+  position: relative;
+  overflow: hidden;
 }
 
 .ability-label {
@@ -475,6 +477,10 @@ body::before {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.65rem;
+}
+
+.ability-inputs input {
+  min-width: 0;
 }
 
 .skill-list {
