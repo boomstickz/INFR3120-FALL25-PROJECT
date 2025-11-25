@@ -3,54 +3,68 @@
 
 <!-- Main content for displaying my database -->
 
-<main class="container my-4">
-  <div class="row">
-    <div class="offset-md-1 col-md-10">
-      <h1><%= title %></h1>
+<main class="main-shell">
+  <section class="page-hero">
+    <div>
+      <p class="eyebrow">Character roster</p>
+      <h2 class="page-title">Characters</h2>
+      <p class="page-subtitle">
+        Review every hero you've forged so far and jump back into crafting new legends.
+      </p>
+      <div class="hero-actions">
+        <a href="/characters/add" class="btn-ember">Create a new character</a>
+      </div>
+    </div>
+    <aside class="hero-card">
+      <img src="/img/shadowwizard.png" alt="Character" class="hero-portrait" />
+      <p class="hero-portrait-caption">Keep your roster battle-ready</p>
+    </aside>
+  </section>
 
-      <a href="/characters/add" class="btn btn-primary mb-3" role="button">
-        <i class="fas fa-plus-circle"></i> CREATE A NEW CHARACTER
-      </a>
+  <section class="panel">
+    <header class="panel-header">
+      <h3>Your characters</h3>
+      <p class="panel-subtitle">A quick view of every adventurer currently in your party.</p>
+    </header>
 
-      <table class="table table-bordered table-striped table-hover">
+    <div class="table-wrapper">
+      <table class="character-table">
+
         <thead>
-          <tr class="d-flex">
-            <th class="text-center col-2">Character Name</th>
-            <th class="text-center col-2">Class and Level</th>
-            <th class="text-center col-2">Background</th>
-            <th class="text-center col-2">Race</th>
-            <th class="text-center col-2">Alignment</th>
-            <th class="text-center col-2">Actions</th>
+          <tr>
+            <th>Character Name</th>
+            <th>Class and Level</th>
+            <th>Background</th>
+            <th>Race</th>
+            <th>Alignment</th>
+            <th class="actions">Actions</th>
           </tr>
         </thead>
         <tbody>
+          <% if (CharacterList.length === 0) { %>
+            <tr>
+              <td colspan="6">No characters yet. Start forging your first hero!</td>
+            </tr>
+          <% } %>
+
           <% for (let count = 0; count < CharacterList.length; count++) { %>
-            <tr class="d-flex">
-              <td class="text-center col-2"><%= CharacterList[count].characterName %></td>
-              <td class="text-center col-2"><%= CharacterList[count].classLevel %></td>
-              <td class="text-center col-2"><%= CharacterList[count].background %></td>
-              <td class="text-center col-2"><%= CharacterList[count].race %></td>
-              <td class="text-center col-2"><%= CharacterList[count].alignment %></td>
 
-              <!-- Actions column -->
-              <td class="text-center col-2">
-                <a href="/characters/edit/<%= CharacterList[count]._id %>"
-                   class="btn btn-primary btn-sm me-2">
-                  <i class="fas fa-pencil-alt"></i> Edit
-                </a>
-
-                <a href="/characters/delete/<%= CharacterList[count]._id %>"
-                   class="btn btn-danger btn-sm"
-                   onclick="return confirm('Delete this character?');">
-                  <i class="fas fa-trash-alt"></i> Delete
-                </a>
+          <tr>
+              <td><%= CharacterList[count].characterName %></td>
+              <td><%= CharacterList[count].classLevel %></td>
+              <td><%= CharacterList[count].background %></td>
+              <td><%= CharacterList[count].race %></td>
+              <td><%= CharacterList[count].alignment %></td>
+              <td class="actions">
+                <a href="/characters/edit/<%= CharacterList[count]._id %>" class="btn-ghost">Edit</a>
+                <a href="/characters/delete/<%= CharacterList[count]._id %>" class="btn-danger" onclick="return confirm('Delete this character?');">Delete</a>
               </td>
             </tr>
           <% } %>
         </tbody>
       </table>
     </div>
-  </div>
+  </section>
 </main>
 
 <%- include('../partials/footer.ejs') %>
