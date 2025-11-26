@@ -38,7 +38,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '../../public')));
+// Serve static assets but defer the root path to EJS routes
+app.use(express.static(path.join(__dirname, '../../public'), { index: false }));
 
 // SESSION MIDDLEWARE (add here)
 app.use(
