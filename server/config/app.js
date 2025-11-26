@@ -6,6 +6,8 @@ let logger = require('morgan');
 let session = require('express-session'); 
 let mongoose = require('mongoose');
 require('dotenv').config();
+// for accesing mongodb
+let DB = require('./db');
 
 let indexRouter = require('../routes/index');
 let usersRouter = require('../routes/users');
@@ -13,20 +15,14 @@ let characterRouter = require('../routes/character');
 
 let app = express();
 
-// database connection
-const mongoUri =
-  process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/forge-my-hero';
 
-mongoose
-  .connect(mongoUri, { serverSelectionTimeoutMS: 5000 })
-  .then(() => console.log(`Connected to MongoDB (${mongoUri})`))
-  .catch((err) => {
-    console.error('MongoDB connection error:', err);
-    console.error(
-      'Ensure MongoDB is running locally or set the MONGO_URI environment variable to a reachable instance.'
-    );
-    process.exit(1);
-  });
+// connection to mongodb
+mongoose.connect(DB.URI);
+let mongoDB = mongoose.connection;
+mongoDB.on('error', console.error.bind(console, 'Connection Error'));
+mongoDB.once('open', () => {
+  console.log('Connected to the MongoDB');
+});
 
 
 // view engine setup
