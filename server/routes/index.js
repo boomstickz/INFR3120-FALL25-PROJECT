@@ -3,7 +3,7 @@ let router = express.Router();
 
 // Landing / home page
 router.get('/', function (req, res) {
-  res.sendFile('index.html', { root: 'public' });
+  res.render('landing', { title: 'Forge My Hero — D&D Character Manager' });
 });
 
 // About page

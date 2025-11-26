@@ -1,0 +1,67 @@
+<%- include('partials/header', { title: 'Forge My Hero — D&D Character Manager' }) %>
+<%- include('partials/main_nav', { landingNav: true }) %>
+
+<main class="main-shell">
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-text">
+      <h2>Strike the anvil. Forge your hero.</h2>
+      <p>
+        Build custom Dungeons &amp; Dragons characters with stats, traits, and
+        stories born from the flames of the forge.
+      </p>
+      <a href="/characters/add" class="btn-primary">Create New Character</a>
+    </div>
+
+    <!-- Character portrait preview (placeholder, future upload area) -->
+    <aside class="hero-forge" aria-label="Character portrait preview">
+      <img
+        src="/img/shadowwizard.png"
+        alt="Example wizard character portrait"
+        class="hero-portrait"
+      />
+      <p class="hero-portrait-caption">
+        Example hero preview · artwork upload coming soon
+      </p>
+    </aside>
+  </section>
+
+  <!-- CHARACTER TABLE -->
+  <section class="panel">
+    <header class="panel-header">
+      <h3>Your characters</h3>
+      <p class="panel-subtitle">
+        A quick view at your characters you are currently forging.
+      </p>
+    </header>
+    <div class="table-wrapper">
+      <table class="character-table">
+        <thead>
+          <tr>
+            <th>Character Name</th>
+            <th>Class and Level</th>
+            <th>Background</th>
+            <th>Race</th>
+            <th>Alignment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Placeholder -->
+          <tr>
+            <td>Example the Wizard</td>
+            <td>Wizard 3</td>
+            <td>Sage</td>
+            <td>Elf</td>
+            <td>Lawful Evil</td>
+
+            <td class="actions">
+              <a href="/characters" class="btn-ghost">View</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>

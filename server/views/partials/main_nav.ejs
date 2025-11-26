@@ -12,21 +12,24 @@
   </div>
 
   <nav>
+    <% const isLandingNav = typeof landingNav !== 'undefined' ? landingNav : false; %>
     <ul class="nav-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="/characters">Characters</a></li>
-      <li><a href="/about">About</a></li>
-
-      <!--  AUTH LOGIC -->
       <% if (!currentUser) { %>
-        <!-- User is NOT logged in -->
-        <li><a href="/users/login">Login</a></li>
-        <li><a href="/users/register">Register</a></li>
+        <% if (isLandingNav) { %>
+          <li><a href="/about">About</a></li>
+          <li><a href="/users/login">Login</a></li>
+          <li><a href="/users/register">Register</a></li>
+        <% } else { %>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/users/login">Login</a></li>
+          <li><a href="/users/register">Register</a></li>
+        <% } %>
 
       <% } else { %>
-        <!-- User IS logged in -->
         <li class="nav-user">Hi, <%= currentUser.username %></li>
-
+        <li><a href="/characters">Characters</a></li>
+        <li><a href="/about">About</a></li>
         <li>
           <form action="/users/logout" method="POST" style="display:inline;">
             <button type="submit" class="logout-btn">Logout</button>
