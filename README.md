@@ -40,12 +40,14 @@ INFR3120-FALL25-PROJECT/
     │   ├── index.js
     │   └── users.js
     └── views/                  # EJS templates
-        ├── Characters/
-        ├── partials/
+        ├── Characters/add.ejs,edit.ejs,list.ejs
+        ├── partials/footer.ejs,header.ejs,main_nav.ejs
         ├── landing.ejs
         ├── login.ejs
         ├── register.ejs
         └── about.ejs
+        └── error.ejs
+
 ```
 
 ## Tech Stack
