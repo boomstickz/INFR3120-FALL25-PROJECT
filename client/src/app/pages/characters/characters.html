@@ -1,0 +1,53 @@
+
+
+<!-- Main content for displaying my database -->
+
+<main class="main-shell">
+  <section class="page-hero page-hero--single">
+    <div>
+      <p class="eyebrow">Character roster</p>
+      <h2 class="page-title">Characters</h2>
+      <p class="page-subtitle">
+        Review every hero you've forged so far and jump back into crafting new legends.
+      </p>
+      <div class="hero-actions">
+        <a href="/characters/add" class="btn-ember">Create a new character</a>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="panel">
+    <header class="panel-header">
+      <h3>Your characters</h3>
+      <p class="panel-subtitle">A quick view of every adventurer currently in your party.</p>
+    </header>
+
+    <div class="table-wrapper">
+      <table class="character-table">
+
+        <thead>
+          <tr>
+            <th>Character Name</th>
+            <th>Class and Level</th>
+            <th>Background</th>
+            <th>Race</th>
+            <th>Alignment</th>
+            <th class="actions">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+       
+              <td class="actions">
+                <a href="/characters/edit/<%= CharacterList[count]._id %>" class="btn-ghost">Edit</a>
+                <a href="/characters/delete/<%= CharacterList[count]._id %>" class="btn-danger" onclick="return confirm('Delete this character?');">Delete</a>
+              </td>
+           
+         
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+
