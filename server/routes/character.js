@@ -72,6 +72,15 @@ const buildCharacterPayload = (req) => ({
   maxHP: req.body.maxHP,
   currentHP: req.body.currentHP,
   tempHP: req.body.tempHP,
+
+  portraits: (() => {
+    try {
+      const parsed = JSON.parse(req.body.portraits || '[]');
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (err) {
+      return [];
+    }
+  })(),
 });
 
 // get route for the read character list - read operation
