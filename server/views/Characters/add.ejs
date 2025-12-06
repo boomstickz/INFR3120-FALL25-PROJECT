@@ -2,7 +2,7 @@
 <%- include('../partials/main_nav.ejs') %>
 
 <main class="main-shell">
-  <section class="page-hero page-hero--single">
+  <section class="page-hero">
 
     <div>
       <p class="eyebrow">Forge a new legend</p>
@@ -15,7 +15,25 @@
       </div>
     </div>
 
-  
+    <aside class="hero-card hero-gallery" data-gallery data-initial-images="<%- encodeURIComponent(JSON.stringify([])) %>">
+      <div class="hero-portrait-grid is-empty" data-gallery-grid>
+        <div class="gallery-empty">
+          <i class="fa-regular fa-image"></i>
+          <p>Drop up to four heroic portraits.</p>
+        </div>
+      </div>
+      <div class="hero-card-actions">
+        <input type="file" accept="image/*" multiple data-gallery-input hidden />
+        <input type="hidden" name="portraits" value="[]" data-gallery-field />
+        <div class="gallery-buttons">
+          <button type="button" class="btn-ember" data-add-btn>Add image</button>
+          <button type="button" class="btn-ghost" data-remove-btn disabled>Remove image</button>
+        </div>
+        <p class="hero-portrait-caption">Upload any number of images—four display in the frame at once.</p>
+      </div>
+    </aside>
+
+
   </section>
 
   <section class="panel forge-panel">
@@ -193,6 +211,27 @@
       </div>
     </form>
   </section>
+
+  <div class="gallery-modal-backdrop" data-gallery-modal hidden>
+    <div class="gallery-modal-card">
+      <div class="gallery-modal-header">
+        <div>
+          <p class="eyebrow">Image manager</p>
+          <h4>Remove uploaded images</h4>
+        </div>
+        <button type="button" class="btn-ghost icon-only" data-modal-close aria-label="Close image manager">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <p class="gallery-modal-subtitle">Select any image below to remove it from this character.</p>
+      <div class="gallery-modal-grid" data-modal-gallery></div>
+      <div class="gallery-modal-actions">
+        <button type="button" class="btn-ghost" data-modal-close>Close</button>
+      </div>
+    </div>
+  </div>
 </main>
+
+<script src="/Script/gallery.js"></script>
 
 <%- include('../partials/footer.ejs') %>
