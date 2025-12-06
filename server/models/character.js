@@ -68,6 +68,9 @@ let characterModel = new mongoose.Schema(
     weapons: String,
     languages: String,
 
+    // Image gallery
+    portraits: [String],
+
     // ===== COMBAT STATS =====
     armorClass: Number,
     initiative: String,
