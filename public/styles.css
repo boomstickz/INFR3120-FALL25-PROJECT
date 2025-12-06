@@ -207,11 +207,16 @@ body::before {
   grid-template-columns: minmax(0, 1.3fr) minmax(240px, 1fr);
   gap: 2rem;
   margin: 2rem 0 1rem;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .page-hero--single {
   grid-template-columns: 1fr;
+}
+
+.page-hero .hero-gallery {
+  align-self: flex-start;
+  justify-self: end;
 }
 
 .page-title {
@@ -271,6 +276,202 @@ body::before {
   font-size: 0.75rem;
   color: var(--muted);
   text-align: center;
+}
+
+.hero-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.hero-portrait-grid {
+  width: 100%;
+  min-height: 200px;
+  display: grid;
+  gap: 0.6rem;
+  padding: 0.5rem;
+  background: radial-gradient(circle at top, rgba(255, 138, 60, 0.12), rgba(7, 8, 11, 0.9));
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-deep);
+  overflow: hidden;
+}
+
+.hero-portrait-grid.is-empty {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  border-style: dashed;
+  background: rgba(12, 14, 18, 0.85);
+}
+
+.gallery-empty {
+  text-align: center;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.gallery-empty i {
+  color: var(--ember-soft);
+  font-size: 1.4rem;
+}
+
+.hero-portrait-grid.count-1 {
+  grid-template-columns: 1fr;
+  grid-template-rows: 185px;
+}
+
+.hero-portrait-grid.count-2 {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 185px;
+}
+
+.hero-portrait-grid.count-3 {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 110px 90px;
+}
+
+.hero-portrait-grid.count-4 {
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 92.5px;
+}
+
+.hero-portrait-cell {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: #0c0f15;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-portrait-cell img.gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.hero-portrait-cell.two-img {
+  aspect-ratio: 1 / 1;
+}
+
+.hero-portrait-cell.three-img-bottom {
+  grid-column: 1 / span 2;
+}
+
+.gallery-buttons .btn-ghost:disabled,
+.gallery-buttons .btn-ghost[aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hero-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.gallery-buttons {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+}
+
+.gallery-buttons .btn-ember,
+.gallery-buttons .btn-ghost {
+  flex: 1;
+  justify-content: center;
+}
+
+.icon-only {
+  padding: 0.45rem 0.65rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 7, 10, 0.8);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 1200;
+}
+
+[data-gallery-modal][hidden] {
+  display: none !important;
+}
+
+.gallery-modal-card {
+  width: min(760px, 95vw);
+  background: linear-gradient(145deg, #191c21, #0f1116);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-deep);
+  padding: 1.25rem;
+}
+
+.gallery-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.gallery-modal-header h4 {
+  margin: 0;
+}
+
+.gallery-modal-subtitle {
+  color: var(--muted);
+  margin: 0.35rem 0 0.9rem;
+}
+
+.gallery-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.85rem;
+}
+
+.modal-thumb {
+  background: rgba(10, 12, 17, 0.9);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.modal-thumb img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
+
+.modal-thumb .btn-ghost {
+  width: 100%;
+}
+
+.gallery-modal-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+body.modal-open {
+  overflow: hidden;
 }
 
 /* --- PANEL / TABLE --- */
