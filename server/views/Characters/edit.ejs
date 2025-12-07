@@ -26,12 +26,13 @@
         </div>
       </div>
       <div class="hero-card-actions">
-        <input type="file" accept="image/*" multiple data-gallery-input hidden />
+        <input type="file" accept="image/*" multiple name="portraitFiles" data-gallery-input hidden form="characterForm" />
         <input
           type="hidden"
           name="portraits"
           value="<%- JSON.stringify(Character.portraits || []) %>"
           data-gallery-field
+          form="characterForm"
         />
         <div class="gallery-buttons">
           <button type="button" class="btn-ember" data-add-btn>Add image</button>
@@ -48,7 +49,7 @@
       <p class="panel-subtitle">Review and refine essentials, combat stats, and skills without leaving the new layout.</p>
     </header>
 
-    <form method="post" class="forge-form">
+    <form id="characterForm" method="post" class="forge-form" enctype="multipart/form-data">
       <div class="form-grid two-col">
         <div class="form-card">
           <h3 class="form-heading">Identity</h3>
