@@ -172,7 +172,7 @@ router.get('/add', ensureLoggedIn, async (req, res, next) => {
 });
 
 // post route for processing add page - create operation
-router.post('/add', ensureLoggedIn, upload.none(), async (req, res, next) => {
+router.post('/add', ensureLoggedIn, async (req, res, next) => {
   try {
     const payload = await buildCharacterPayload(req);
     let newCharacter = Character(payload);
@@ -207,7 +207,7 @@ router.get('/edit/:id', ensureLoggedIn, async (req, res, next) => {
 });
 
 // post route for processing edit page - update operation
-router.post('/edit/:id', ensureLoggedIn, upload.any(), async (req, res, next) => {
+router.post('/edit/:id', ensureLoggedIn, async (req, res, next) => {
   try {
     let id = req.params.id;
     const existingCharacter = await Character.findById(id);
