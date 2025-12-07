@@ -31,23 +31,43 @@ async function sendResetEmail(recipientEmail, resetUrl) {
     return;
   }
 
-  const transportOptions = process.env.MAIL_HOST
-    ? {
-        host: process.env.MAIL_HOST,
-        port: Number(process.env.MAIL_PORT) || 587,
-        secure: process.env.MAIL_SECURE === 'true',
-        auth:
-          process.env.MAIL_USER && process.env.MAIL_PASS
-            ? { user: process.env.MAIL_USER, pass: process.env.MAIL_PASS }
-            : undefined,
-      }
-    : {
+  let transporter;
+  let usingStreamPreview = false;
+
+  if (process.env.MAIL_HOST) {
+    transporter = mailer.createTransport({
+      host: process.env.MAIL_HOST,
+      port: Number(process.env.MAIL_PORT) || 587,
+      secure: process.env.MAIL_SECURE === 'true',
+      auth:
+        process.env.MAIL_USER && process.env.MAIL_PASS
+          ? { user: process.env.MAIL_USER, pass: process.env.MAIL_PASS }
+          : undefined,
+    });
+  } else {
+    try {
+      // Create an Ethereal test account automatically for local development.
+      const testAccount = await mailer.createTestAccount();
+      transporter = mailer.createTransport({
+        host: testAccount.smtp.host,
+        port: testAccount.smtp.port,
+        secure: testAccount.smtp.secure,
+        auth: {
+          user: testAccount.user,
+          pass: testAccount.pass,
+        },
+      });
+    } catch (err) {
+      // Fall back to a console preview so links are still visible during development.
+      usingStreamPreview = true;
+      console.warn('Falling back to console-only reset email preview:', err?.message);
+      transporter = mailer.createTransport({
         streamTransport: true,
         newline: 'unix',
         buffer: true,
-      };
-
-  const transporter = mailer.createTransport(transportOptions);
+      });
+    }
+  }
 
   const mailOptions = {
     from: process.env.MAIL_FROM || 'Forge My Hero <no-reply@forgemyhero.local>',
@@ -63,7 +83,12 @@ async function sendResetEmail(recipientEmail, resetUrl) {
 
   const info = await transporter.sendMail(mailOptions);
 
-  if (transporter.options && transporter.options.streamTransport && info?.message) {
+  const previewUrl = mailer.getTestMessageUrl?.(info);
+  if (previewUrl) {
+    console.log('Password reset email preview URL:', previewUrl);
+  }
+
+  if ((usingStreamPreview || transporter?.options?.streamTransport) && info?.message) {
     console.log('Password reset email preview:\n', info.message.toString());
   }
 }
