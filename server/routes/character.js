@@ -3,7 +3,7 @@ let router = express.Router();
 let mongoose = require('mongoose');
 const path = require('path');
 const fs = require('fs');
-const multer = require('multer');
+
 
 // import character model (mongodb collection)
 let Character = require('../models/character');
@@ -12,7 +12,6 @@ let Character = require('../models/character');
 const { ensureLoggedIn } = require('../middleware/auth');
 
 const uploadDir = path.resolve(__dirname, '../../public/uploads/characters');
-const upload = multer({ limits: { fieldSize: 25 * 1024 * 1024 } });
 
 const parsePortraits = (raw) => {
   try {

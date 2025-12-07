@@ -31,8 +31,9 @@ app.set('view engine', 'ejs');
 
 // middleware stack
 app.use(logger('dev'));
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: false, limit: '10mb' }));
+// Increase body parser limits to handle larger base64 payloads from character portraits
+app.use(express.json({ limit: '25mb' }));
+app.use(express.urlencoded({ extended: true, limit: '25mb' }));
 app.use(cookieParser());
 // Serve static assets but defer the root path to EJS routes
 app.use(express.static(path.join(__dirname, '../../public'), { index: false }));

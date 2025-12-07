@@ -23,13 +23,13 @@
         </div>
       </div>
       <div class="hero-card-actions">
-        <input type="file" accept="image/*" multiple name="portraitFiles" data-gallery-input hidden form="characterForm" />
+        <input type="file" accept="image/*" multiple data-gallery-input hidden form="characterForm" />
         <input type="hidden" name="portraits" value="[]" data-gallery-field form="characterForm" />
         <div class="gallery-buttons">
           <button type="button" class="btn-ember" data-add-btn>Add image</button>
           <button type="button" class="btn-ghost" data-remove-btn disabled>Remove image</button>
         </div>
-        <p class="hero-portrait-caption">Upload any number of images—four display in the frame at once.</p>
+        <p class="hero-portrait-caption">Upload any number of images—four display in the frame at once. Images stay in the browser until the form saves them as base64 strings.</p>
       </div>
     </aside>
 
