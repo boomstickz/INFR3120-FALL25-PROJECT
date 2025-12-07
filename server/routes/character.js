@@ -204,7 +204,7 @@ router.get('/edit/:id', ensureLoggedIn, async (req, res, next) => {
 });
 
 // post route for processing edit page - update operation
-router.post('/edit/:id', ensureLoggedIn, upload.none(), async (req, res, next) => {
+router.post('/edit/:id', ensureLoggedIn, upload.any(), async (req, res, next) => {
   try {
     let id = req.params.id;
     const payload = await buildCharacterPayload(req);
