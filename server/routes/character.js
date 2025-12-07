@@ -3,7 +3,7 @@ let router = express.Router();
 let mongoose = require('mongoose');
 const path = require('path');
 const fs = require('fs');
-
+const multer = require('multer');
 
 // import character model (mongodb collection)
 let Character = require('../models/character');
@@ -12,6 +12,7 @@ let Character = require('../models/character');
 const { ensureLoggedIn } = require('../middleware/auth');
 
 const uploadDir = path.resolve(__dirname, '../../public/uploads/characters');
+const upload = multer({ limits: { fieldSize: 25 * 1024 * 1024 } });
 
 const parsePortraits = (raw) => {
   try {
@@ -168,7 +169,7 @@ router.get('/add', ensureLoggedIn, async (req, res, next) => {
 });
 
 // post route for processing add page - create operation
-router.post('/add', ensureLoggedIn, async (req, res, next) => {
+router.post('/add', ensureLoggedIn, upload.none(), async (req, res, next) => {
   try {
     const payload = await buildCharacterPayload(req);
     let newCharacter = Character(payload);
@@ -203,7 +204,7 @@ router.get('/edit/:id', ensureLoggedIn, async (req, res, next) => {
 });
 
 // post route for processing edit page - update operation
-router.post('/edit/:id', ensureLoggedIn, async (req, res, next) => {
+router.post('/edit/:id', ensureLoggedIn, upload.none(), async (req, res, next) => {
   try {
     let id = req.params.id;
     const payload = await buildCharacterPayload(req);
