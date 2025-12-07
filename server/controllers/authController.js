@@ -34,16 +34,29 @@ async function sendResetEmail(recipientEmail, resetUrl) {
   let transporter;
   let usingStreamPreview = false;
 
-  if (process.env.MAIL_HOST) {
-    transporter = mailer.createTransport({
-      host: process.env.MAIL_HOST,
-      port: Number(process.env.MAIL_PORT) || 587,
-      secure: process.env.MAIL_SECURE === 'true',
-      auth:
-        process.env.MAIL_USER && process.env.MAIL_PASS
-          ? { user: process.env.MAIL_USER, pass: process.env.MAIL_PASS }
-          : undefined,
-    });
+  if (process.env.MAIL_HOST || process.env.MAIL_SERVICE || (process.env.MAIL_USER && process.env.MAIL_PASS)) {
+    const transportOptions = {};
+
+    if (process.env.MAIL_HOST) {
+      transportOptions.host = process.env.MAIL_HOST;
+      transportOptions.port = Number(process.env.MAIL_PORT) || 587;
+      transportOptions.secure = process.env.MAIL_SECURE === 'true';
+    } else {
+      // Allows hosted email providers (e.g., Gmail) via the service name without a custom host.
+      transportOptions.service = process.env.MAIL_SERVICE || 'gmail';
+      if (process.env.MAIL_PORT) {
+        transportOptions.port = Number(process.env.MAIL_PORT);
+      }
+      if (process.env.MAIL_SECURE) {
+        transportOptions.secure = process.env.MAIL_SECURE === 'true';
+      }
+    }
+
+    if (process.env.MAIL_USER && process.env.MAIL_PASS) {
+      transportOptions.auth = { user: process.env.MAIL_USER, pass: process.env.MAIL_PASS };
+    }
+
+    transporter = mailer.createTransport(transportOptions);
   } else {
     try {
       // Create an Ethereal test account automatically for local development.

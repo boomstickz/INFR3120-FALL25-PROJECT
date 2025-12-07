@@ -42,9 +42,14 @@ INFR3120-FALL25-PROJECT/
    npm install
    ```
 
-2. **Configure environment variables** (e.g., in a `.env` file):
+2. **Configure environment variables** (e.g., in a `.env` file; see `.env.example`):
    - `MONGO_URI` — MongoDB connection string
    - `SESSION_SECRET` — secret used to sign session cookies
+   - **Password reset email settings** (for real mail delivery):
+     - `MAIL_HOST` / `MAIL_PORT` / `MAIL_SECURE` — SMTP details (e.g., host `smtp.gmail.com`, port `465` with `MAIL_SECURE=true`)
+     - _or_ `MAIL_SERVICE` — provider name if you prefer Nodemailer service shortcuts (default `gmail`)
+     - `MAIL_USER` / `MAIL_PASS` — SMTP username and password (for Gmail, use an app password)
+     - `MAIL_FROM` — optional from header (defaults to `Forge My Hero <no-reply@forgemyhero.local>`) 
 
 3. **Run the app**
    ```bash
