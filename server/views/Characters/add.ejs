@@ -23,8 +23,8 @@
         </div>
       </div>
       <div class="hero-card-actions">
-        <input type="file" accept="image/*" multiple data-gallery-input hidden />
-        <input type="hidden" name="portraits" value="[]" data-gallery-field />
+        <input type="file" accept="image/*" multiple name="portraitFiles" data-gallery-input hidden form="characterForm" />
+        <input type="hidden" name="portraits" value="[]" data-gallery-field form="characterForm" />
         <div class="gallery-buttons">
           <button type="button" class="btn-ember" data-add-btn>Add image</button>
           <button type="button" class="btn-ghost" data-remove-btn disabled>Remove image</button>
@@ -42,7 +42,7 @@
       <p class="panel-subtitle">Fill out the essentials, then dial in combat stats and proficiencies.</p>
     </header>
 
-    <form method="post" class="forge-form">
+    <form id="characterForm" method="post" class="forge-form">
       <div class="form-grid two-col">
         <div class="form-card">
           <h3 class="form-heading">Identity</h3>
