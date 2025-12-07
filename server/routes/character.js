@@ -49,16 +49,20 @@ const saveBase64Portraits = async (rawPortraits = []) => {
 };
 
 // Collects character fields from the request body so add and edit routes stay in sync
-const buildCharacterPayload = async (req) => {
+const buildCharacterPayload = async (req, currentPortraits = []) => {
   const body = req.body || {};
-  const parsedPortraits = parsePortraits(body.portraits);
-  const existingPortraits = parsedPortraits.filter(
-    (portrait) => typeof portrait === 'string' && portrait.startsWith('/uploads/characters/')
-  );
+  const rawPortraits = typeof body.portraits === 'string' ? body.portraits : undefined;
+  const rawProvided = typeof body.portraits !== 'undefined';
+  const parsedPortraits = parsePortraits(rawPortraits);
+  const existingPortraits = rawProvided
+    ? parsedPortraits.filter(
+        (portrait) => typeof portrait === 'string' && portrait.startsWith('/uploads/characters/')
+      )
+    : currentPortraits;
 
-  const base64Portraits = parsedPortraits.filter(
-    (portrait) => typeof portrait === 'string' && portrait.startsWith('data:image')
-  );
+  const base64Portraits = rawProvided
+    ? parsedPortraits.filter((portrait) => typeof portrait === 'string' && portrait.startsWith('data:image'))
+    : [];
   const savedBase64Portraits = await saveBase64Portraits(base64Portraits);
 
   const portraits = [...existingPortraits, ...savedBase64Portraits];
@@ -207,7 +211,8 @@ router.get('/edit/:id', ensureLoggedIn, async (req, res, next) => {
 router.post('/edit/:id', ensureLoggedIn, upload.any(), async (req, res, next) => {
   try {
     let id = req.params.id;
-    const payload = await buildCharacterPayload(req);
+    const existingCharacter = await Character.findById(id);
+    const payload = await buildCharacterPayload(req, existingCharacter?.portraits || []);
     let updateCharacter = {
       _id: id,
       ...payload
