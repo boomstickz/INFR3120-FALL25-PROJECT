@@ -24,6 +24,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: '/img/profile-placeholder.svg',
     },
+    resetPasswordToken: {
+      type: String,
+    },
+    resetPasswordExpires: {
+      type: Date,
+    },
   },
   {
     timestamps: true,
