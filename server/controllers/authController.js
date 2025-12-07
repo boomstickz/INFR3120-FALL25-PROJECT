@@ -1,6 +1,7 @@
 // server/controllers/authController.js
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
+const { DEFAULT_PROFILE } = require('./profileController');
 
 const SALT_ROUNDS = 10;
 
@@ -78,6 +79,7 @@ module.exports.processRegister = async (req, res) => {
       id: user._id,
       username: user.username,
       email: user.email,
+      profileImage: user.profileImage,
     };
 
     res.redirect('/');
@@ -122,12 +124,18 @@ module.exports.processLogin = async (req, res) => {
         formData,
       });
     }
+  
+    if (!user.profileImage) {
+      user.profileImage = DEFAULT_PROFILE;
+      await user.save();
+    }
 
     // Save to session
     req.session.user = {
       id: user._id,
       username: user.username,
       email: user.email,
+      profileImage: user.profileImage,
     };
 
     const redirectTo = req.session.redirectTo || '/';
