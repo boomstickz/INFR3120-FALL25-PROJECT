@@ -7,12 +7,17 @@
     const hiddenField = container.querySelector('[data-gallery-field]');
     const modal = document.querySelector('[data-gallery-modal]');
     const modalGallery = modal?.querySelector('[data-modal-gallery]');
-    const modalClosers = modal ? modal.querySelectorAll('[data-modal-close]') : [];
+    const modalClosers = modal
+      ? modal.querySelectorAll('[data-gallery-modal-close], [data-modal-close]')
+      : [];
 
-    const images = (() => {
+    const items = (() => {
       try {
         const encoded = container.dataset.initialImages || '';
-        return encoded ? JSON.parse(decodeURIComponent(encoded)) : [];
+        const parsed = encoded ? JSON.parse(decodeURIComponent(encoded)) : [];
+        return Array.isArray(parsed)
+          ? parsed.map((src) => ({ src, type: 'existing' }))
+          : [];
       } catch (err) {
         return [];
       }
@@ -20,15 +25,26 @@
 
     function syncField() {
       if (hiddenField) {
-        hiddenField.value = JSON.stringify(images);
+        hiddenField.value = JSON.stringify(items.map((item) => item.src));
       }
+    }
+
+    function rebuildFileInput() {
+      if (!fileInput || typeof DataTransfer === 'undefined') return;
+
+      const dt = new DataTransfer();
+      items
+        .filter((item) => item.type === 'file' && item.file)
+        .forEach((item) => dt.items.add(item.file));
+
+      fileInput.files = dt.files;
     }
 
     function renderGrid() {
       grid.innerHTML = '';
       grid.classList.remove('count-1', 'count-2', 'count-3', 'count-4', 'is-empty');
 
-      if (!images.length) {
+      if (!items.length) {
         grid.classList.add('is-empty');
         grid.innerHTML = `<div class="gallery-empty"><i class="fa-regular fa-image"></i><p>Drop up to four heroic portraits.</p></div>`;
         syncField();
@@ -36,10 +52,10 @@
         return;
       }
 
-      const displayImages = images.slice(0, 4);
+      const displayImages = items.slice(0, 4);
       grid.classList.add(`count-${displayImages.length}`);
 
-      displayImages.forEach((src, index) => {
+      displayImages.forEach((item, index) => {
         const wrapper = document.createElement('div');
         wrapper.classList.add('hero-portrait-cell');
 
@@ -51,7 +67,7 @@
         if (displayImages.length === 4) wrapper.classList.add('four-img');
 
         const image = document.createElement('img');
-        image.src = src;
+        image.src = item.src;
         image.alt = 'Uploaded character portrait';
         image.classList.add('gallery-image');
         wrapper.appendChild(image);
@@ -59,11 +75,12 @@
       });
 
       syncField();
+      rebuildFileInput();
       toggleActions();
     }
 
     function toggleActions() {
-      const hasImages = images.length > 0;
+      const hasImages = items.length > 0;
       if (removeButton) {
         removeButton.disabled = !hasImages;
         removeButton.setAttribute('aria-disabled', (!hasImages).toString());
@@ -76,7 +93,7 @@
 
         const reader = new FileReader();
         reader.onload = (e) => {
-          images.push(e.target?.result);
+          items.push({ src: e.target?.result, type: 'file', file });
           renderGrid();
         };
         reader.readAsDataURL(file);
@@ -86,18 +103,18 @@
 
     function openModal() {
       if (!modal || !modalGallery) return;
-      if (!images.length) {
+      if (!items.length) {
         closeModal();
         return;
       }
 
       modalGallery.innerHTML = '';
-      images.forEach((src, index) => {
+      items.forEach((item, index) => {
         const tile = document.createElement('div');
         tile.classList.add('modal-thumb');
 
         const image = document.createElement('img');
-        image.src = src;
+        image.src = item.src;
         image.alt = `Uploaded image ${index + 1}`;
 
         const remove = document.createElement('button');
@@ -105,7 +122,7 @@
         remove.classList.add('btn-ghost');
         remove.textContent = 'Remove';
         remove.addEventListener('click', () => {
-          images.splice(index, 1);
+          items.splice(index, 1);
           renderGrid();
           openModal();
         });
