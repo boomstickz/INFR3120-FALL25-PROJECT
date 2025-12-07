@@ -23,6 +23,15 @@ async function loadMailer() {
   return cachedMailer;
 }
 
+const FALSEY_ENV_VALUES = new Set(['false', '0', 'off', 'no', '']);
+
+function normalizeEnv(value) {
+  if (value === undefined || value === null) return undefined;
+  const trimmed = String(value).trim();
+  if (FALSEY_ENV_VALUES.has(trimmed.toLowerCase())) return undefined;
+  return trimmed;
+}
+
 async function sendResetEmail(recipientEmail, resetUrl) {
   const mailer = await loadMailer();
 
@@ -34,26 +43,33 @@ async function sendResetEmail(recipientEmail, resetUrl) {
   let transporter;
   let usingStreamPreview = false;
 
-  if (process.env.MAIL_HOST || process.env.MAIL_SERVICE || (process.env.MAIL_USER && process.env.MAIL_PASS)) {
+  const host = normalizeEnv(process.env.MAIL_HOST);
+  const service = normalizeEnv(process.env.MAIL_SERVICE);
+  const user = normalizeEnv(process.env.MAIL_USER);
+  const pass = normalizeEnv(process.env.MAIL_PASS);
+  const port = Number(process.env.MAIL_PORT) || undefined;
+  const secure = String(process.env.MAIL_SECURE || '').toLowerCase() === 'true';
+
+  if (host || service || (user && pass)) {
     const transportOptions = {};
 
-    if (process.env.MAIL_HOST) {
-      transportOptions.host = process.env.MAIL_HOST;
-      transportOptions.port = Number(process.env.MAIL_PORT) || 587;
-      transportOptions.secure = process.env.MAIL_SECURE === 'true';
+    if (host) {
+      transportOptions.host = host;
+      transportOptions.port = port || 587;
+      transportOptions.secure = secure;
     } else {
       // Allows hosted email providers (e.g., Gmail) via the service name without a custom host.
-      transportOptions.service = process.env.MAIL_SERVICE || 'gmail';
-      if (process.env.MAIL_PORT) {
-        transportOptions.port = Number(process.env.MAIL_PORT);
+      transportOptions.service = service || 'gmail';
+      if (port) {
+        transportOptions.port = port;
       }
       if (process.env.MAIL_SECURE) {
-        transportOptions.secure = process.env.MAIL_SECURE === 'true';
+       transportOptions.secure = secure;
       }
     }
 
-    if (process.env.MAIL_USER && process.env.MAIL_PASS) {
-      transportOptions.auth = { user: process.env.MAIL_USER, pass: process.env.MAIL_PASS };
+    if (user && pass) {
+      transportOptions.auth = { user, pass };
     }
 
     transporter = mailer.createTransport(transportOptions);
@@ -82,8 +98,10 @@ async function sendResetEmail(recipientEmail, resetUrl) {
     }
   }
 
+  const fromAddress = normalizeEnv(process.env.MAIL_FROM) || user || 'Forge My Hero <no-reply@forgemyhero.local>';
+
   const mailOptions = {
-    from: process.env.MAIL_FROM || 'Forge My Hero <no-reply@forgemyhero.local>',
+    from: fromAddress,
     to: recipientEmail,
     subject: 'Reset your Forge My Hero password',
     text: `We received a request to reset your Forge My Hero password. Use the link below to set a new one:\n\n${resetUrl}\n\nIf you did not request this, please ignore this email.`,
@@ -94,15 +112,20 @@ async function sendResetEmail(recipientEmail, resetUrl) {
     `,
   };
 
-  const info = await transporter.sendMail(mailOptions);
+  try {
+    const info = await transporter.sendMail(mailOptions);
 
-  const previewUrl = mailer.getTestMessageUrl?.(info);
-  if (previewUrl) {
-    console.log('Password reset email preview URL:', previewUrl);
-  }
+    const previewUrl = mailer.getTestMessageUrl?.(info);
+    if (previewUrl) {
+      console.log('Password reset email preview URL:', previewUrl);
+    }
 
-  if ((usingStreamPreview || transporter?.options?.streamTransport) && info?.message) {
-    console.log('Password reset email preview:\n', info.message.toString());
+    if ((usingStreamPreview || transporter?.options?.streamTransport) && info?.message) {
+      console.log('Password reset email preview:\n', info.message.toString());
+    }
+  } catch (err) {
+    console.error('Failed to deliver password reset email. Check SMTP credentials and allow-list settings.', err?.message);
+    console.log(`[password-reset] Send this link to ${recipientEmail}: ${resetUrl}`);
   }
 }
 
