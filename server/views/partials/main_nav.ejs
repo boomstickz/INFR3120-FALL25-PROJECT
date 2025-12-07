@@ -27,7 +27,28 @@
         <% } %>
 
       <% } else { %>
-        <li class="nav-user">Hi, <%= currentUser.username %></li>
+        <li class="nav-user">
+          <button
+            type="button"
+            class="nav-avatar-button"
+            aria-label="Upload profile picture"
+            data-profile-upload
+          >
+            <img
+              src="<%= (currentUser && currentUser.profileImage) ? currentUser.profileImage : '/img/profile-placeholder.svg' %>"
+              alt="Profile picture"
+              class="nav-avatar"
+              data-profile-avatar
+            />
+          </button>
+          <input
+            type="file"
+            accept="image/*"
+            class="visually-hidden"
+            data-profile-input
+          />
+          <span class="nav-username">Hi, <%= currentUser.username %></span>
+        </li>
         <li><a href="/characters">Characters</a></li>
         <li><a href="/about">About</a></li>
         <li>
@@ -41,3 +62,66 @@
     </ul>
   </nav>
 </header>
+
+<script>
+  (() => {
+    const uploadButton = document.querySelector('[data-profile-upload]');
+    const fileInput = document.querySelector('[data-profile-input]');
+    const avatarImage = document.querySelector('[data-profile-avatar]');
+
+    if (!uploadButton || !fileInput || !avatarImage) {
+      return;
+    }
+
+    uploadButton.addEventListener('click', () => fileInput.click());
+
+    fileInput.addEventListener('change', () => {
+      if (!fileInput.files || !fileInput.files.length) {
+        return;
+      }
+
+      const file = fileInput.files[0];
+      const maxSize = 5 * 1024 * 1024;
+
+      if (file.size > maxSize) {
+        alert('Please choose an image under 5MB.');
+        fileInput.value = '';
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = async () => {
+        try {
+          uploadButton.setAttribute('aria-busy', 'true');
+
+          const response = await fetch('/users/profile-picture', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ imageData: reader.result }),
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.error || 'Unable to upload profile picture.');
+          }
+
+          if (data.imageUrl) {
+            avatarImage.src = data.imageUrl;
+          }
+        } catch (err) {
+          console.error(err);
+          alert(err.message || 'Unable to upload profile picture. Please try again.');
+        } finally {
+          uploadButton.removeAttribute('aria-busy');
+          fileInput.value = '';
+        }
+      };
+
+      reader.readAsDataURL(file);
+    });
+  })();
+</script>
