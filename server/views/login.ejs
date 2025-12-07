@@ -10,6 +10,10 @@
   <section class="auth-card">
     <div class="auth-card__inner">
 
+      <% if (successMessage) { %>
+        <div class="auth-success"><%= successMessage %></div>
+      <% } %>
+
       <% if (errorMessage) { %>
         <div class="auth-error"><%= errorMessage %></div>
       <% } %>
@@ -29,12 +33,15 @@
 
         <div class="form-group">
           <label for="password">Password</label>
-          <input 
-            id="password" 
-            name="password" 
-            type="password" 
+          <input
+            id="password"
+            name="password"
+            type="password"
             required
           />
+          <div class="auth-helper">
+            <a href="/users/forgot">Forgot password?</a>
+          </div>
         </div>
 
         <button type="submit" class="btn btn-primary">
